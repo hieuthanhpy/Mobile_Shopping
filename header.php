@@ -165,13 +165,20 @@
       <div class="container" id="get_category_home">
         <ul class="main-nav nav navbar-nav">
           <li class="active"><a href="index.php">Trang chủ</a></li>
-          <li class="#"><a href="#">Iphone</a></li>
-          <li class="#"><a href="#">Samsung</a></li>
-          <li class="#"><a href="#">Huawei</a></li>
-          <li class="#"><a href="#">Oppo</a></li>
-          <li class="#"><a href="#">Xiaomi</a></li>
-          <li class="#"><a href="#">Nokia</a></li>
-					<li class="#"><a href="#">Sony</a></li>
+          <?php
+          include 'connectDB.php';
+          $menu_query = "SELECT brand_title FROM brands";
+          $run_query=mysqli_query($con,$menu_query);
+          if(mysqli_num_rows($run_query) > 0){
+            while($row=mysqli_fetch_array($run_query)){
+              $brand_title=$row['brand_title'];
+              echo "
+              <li class='#'><a href='#'>$brand_title</a></li>
+              ";
+            };
+          };
+          ?>
+          
         </ul>
       </div>
       <!-- /container -->
