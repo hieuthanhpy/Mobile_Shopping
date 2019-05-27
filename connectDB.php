@@ -6,6 +6,7 @@ $db = "dienthoaididong";
 
 // Create connection
 $con = mysqli_connect($servername, $username, $password,$db);
+mysqli_set_charset($con,'UTF8');
 
 // Check connection
 if (!$con) {
