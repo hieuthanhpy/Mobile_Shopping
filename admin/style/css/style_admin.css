@@ -550,7 +550,8 @@ iframe {
   font-size: 30px;
   color: #333333;
   line-height: 1.2;
-  text-align: center;
+	text-align: center;
+	margin-bottom: 15px;
 }
 .login100-form-title i {
   font-size: 60px;
@@ -698,7 +699,7 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-top: 13px;
+	padding-top: 13px;
 }
 
 .wrap-login100-form-btn {
@@ -708,7 +709,8 @@ iframe {
   z-index: 1;
   border-radius: 25px;
   overflow: hidden;
-  margin: 0 auto;
+	margin: 0 auto;
+	margin-bottom: 15px;
 }
 
 .login100-form-bgbtn {
