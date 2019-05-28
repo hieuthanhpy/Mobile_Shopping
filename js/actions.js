@@ -23,7 +23,7 @@ $(document).ready(function(){
 		$.ajax({
 			url	:	"homeaction.php",
 			method:	"POST",
-			data	:	{#:1},
+			data	:	{categoryhome:1},
 			success	:	function(data){
 				$("#get_category_home").html(data);
 				
@@ -96,7 +96,7 @@ $(document).ready(function(){
 		})
 	
 	})
-    $("body").delegate(".#","click",function(event){
+    $("body").delegate(".categoryhome","click",function(event){
 		$("#get_product").html("<h3>Loading...</h3>");
 		event.preventDefault();
 		var cid = $(this).attr('cid');
@@ -412,25 +412,3 @@ $(document).ready(function(){
 		})
 	})
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
