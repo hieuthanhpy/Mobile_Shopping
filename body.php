@@ -111,7 +111,7 @@
 
                   <?php
                     include 'connectDB.php';
-                    $product_query = "SELECT * FROM products, brands WHERE products.brand_id=brands.brand_id AND product_id BETWEEN 10 AND 20";
+                    $product_query = "SELECT * FROM products, brands WHERE products.brand_id=brands.brand_id";
                     $run_query=mysqli_query($con, $product_query);
                     if(mysqli_num_rows($run_query) > 0) {
                       while($row = mysqli_fetch_array($run_query)){
