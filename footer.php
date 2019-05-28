@@ -54,6 +54,7 @@
 <script src="js/sweetalert.min"></script>
 <script src="js/jquery.payform.min.js" charset="utf-8"></script>
 <script src="js/script.js"></script>
+<script src="js/filterProduct"></script>
 <script>var c = 0;
   function menu(){
     if(c % 2 == 0) {

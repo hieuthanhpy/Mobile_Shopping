@@ -1,64 +1,37 @@
 <?php
-  include 'header.php';
-  ?>
+include 'header.php';
+?>
 <div class="main main-raised">
   <div class="section">
     <!-- container -->
     <div class="container">
       <!-- row -->
       <div class="row">
-        <!-- ASIDE -->
-        <div id="aside" class="col-md-3">
-          <!-- aside Widget -->
-          <div id="get_category">
-          </div>
-          <!-- /aside Widget -->
-          <!-- aside Widget -->
+        <!-- BRAND LIST-->
+        <div class="col-md-3">
           <div class="aside">
-            <h3 class="aside-title">Price</h3>
-            <div class="price-filter">
-              <div id="price-slider" class="noUi-target noUi-ltr noUi-horizontal">
-                <div class="noUi-base">
-                  <div class="noUi-origin" style="left: 0%;">
-                    <div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider" aria-orientation="horizontal" aria-valuemin="0.0" aria-valuemax="100.0" aria-valuenow="0.0" aria-valuetext="1.00" style="z-index: 5;"></div>
-                  </div>
-                  <div class="noUi-connect" style="left: 0%; right: 0%;"></div>
-                  <div class="noUi-origin" style="left: 100%;">
-                    <div class="noUi-handle noUi-handle-upper" data-handle="1" tabindex="0" role="slider" aria-orientation="horizontal" aria-valuemin="0.0" aria-valuemax="100.0" aria-valuenow="100.0" aria-valuetext="999.00" style="z-index: 4;"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="input-number price-min">
-                <input id="price-min" type="number">
-                <span class="qty-up">+</span>
-                <span class="qty-down">-</span>
-              </div>
-              <span>-</span>
-              <div class="input-number price-max">
-                <input id="price-max" type="number">
-                <span class="qty-up">+</span>
-                <span class="qty-down">-</span>
-              </div>
-            </div>
+          <h3 class="aside-title">Điện Thoại</h3>
+          <ul>
+            <?php
+            include "connectDB.php";
+            $query="SELECT brand_title, COUNT(*) as 'count' FROM brands, products WHERE products.brand_id=brands.brand_id GROUP BY brand_title";
+            $run_query=mysqli_query($con,$query);
+            if(mysqli_num_rows($run_query) > 0){
+              while($row=mysqli_fetch_array($run_query)){
+                $brand_title=$row['brand_title'];
+                $count =$row['count'];
+                echo "
+                <li class='brand-item'><a href='#'>$brand_title <span class='label label-success'>($count)</span></a></li>
+                ";
+              };
+            };
+            ?>
+          </ul>
           </div>
-          <!-- /aside Widget -->
-          <!-- aside Widget -->
-          <div id="get_brand">
-          </div>
-          <!-- /aside Widget -->
-          <!-- aside Widget -->
-          <div class="aside">
-            <h3 class="aside-title">Top selling</h3>
-            <div id="get_product_home">
-              <!-- product widget -->
-              <!-- product widget -->
-            </div>
-          </div>
-          <!-- /aside Widget -->
         </div>
-        <!-- /ASIDE -->
-        <!-- STORE -->
-        <div id="store" class="col-md-9">
+        <!--/BRAND LIST-->
+        <!-- PRODUCT LIST -->
+        <div class="col-md-9">
           <!-- store top filter -->
           <div class="store-filter clearfix">
             <div class="store-sort">
@@ -83,6 +56,69 @@
             </ul>
           </div>
           <!-- /store top filter -->
+          <!-- Products tab & slick -->
+          <div class="col-md-12 mainn mainn-body">
+            <div class="row">
+              <div class="products-tabs">
+                <!-- tab -->
+                <div id="tab1" class="tab-pane active">
+                  <div class="products-slick-pro-page" data-nav="#slick-nav-1">
+                    <!--Viet code hien thi san pham-->
+
+                    <?php
+                    include 'connectDB.php';
+                    $product_query = "SELECT * FROM products, brands WHERE products.brand_id=brands.brand_id";
+                    $run_query = mysqli_query($con, $product_query);
+                    if (mysqli_num_rows($run_query) > 0) {
+                      while ($row = mysqli_fetch_array($run_query)) {
+                        $pro_id = $row['product_id'];
+                        $pro_title = $row['product_title'];
+                        $pro_price = $row['product_price'];
+                        $pro_image = $row['product_image'];
+
+                        echo "                    
+                    
+                        <div class='product' >
+                        <a href='product_details.php?p=$pro_id'>
+                          <div class='product-img'>
+                            <img src='product_images/$pro_image' style='max-height: 170px;' alt=''>
+                              <div class='product-label'>
+                                <span class='new'>MỚI</span>
+                            </div>
+                          </div>
+                        </a>
+                    <div class='product-body'>
+                      <!-- <p class='product-producer'></p> -->
+                      <h3 class='product-name header-cart-item-name'><a href='product_datails.php?p=$pro_id'>$pro_title</a></h3>
+                      <h4 class='product-price header-cart-item-info'>$pro_price VND</h4>
+                      <div class='product-rating'>
+                        <i class='fa fa-star'></i>
+                        <i class='fa fa-star'></i>
+                        <i class='fa fa-star'></i>
+                        <i class='fa fa-star'></i>
+                        <i class='fa fa-star'></i>
+                      </div>
+                    </div>
+                    <div class='add-to-cart'>
+                      <button pid='$pro_id' id='product' class='add-to-cart-btn' href='#'><i class='fa fa-shopping-cart'></i> Thêm vào giỏ hàng</button>
+                    </div>
+                  </div>
+                 
+                        ";
+                      };
+                    };
+
+                    ?>
+
+                  </div>
+                  <div id="slick-nav-1" class="products-slick-nav"></div>
+                </div>
+                <!-- /tab -->
+              </div>
+            </div>
+          </div>
+          <!-- Products tab & slick -->
+          <!-- /store top filter -->
           <!-- store products -->
           <div class="row" id="product-row">
             <div class="col-md-12 col-xs-12" id="product_msg">
@@ -94,17 +130,8 @@
             <!-- /product -->
           </div>
           <!-- /store products -->
-          <!-- store bottom filter -->
-          <div class="store-filter clearfix">
-            <span class="store-qty">Showing 20-100 products</span>
-            <ul class="store-pagination" id="pageno">
-              <li ><a class="active" href="#aside">1</a></li>
-              <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-            </ul>
-          </div>
-          <!-- /store bottom filter -->
         </div>
-        <!-- /STORE -->
+        <!-- /PRODUCT LIST -->
       </div>
       <!-- /row -->
     </div>
@@ -112,6 +139,6 @@
   </div>
 </div>
 <?php
-  include "newsletter.php";
-  include "footer.php";
-  ?>
+include "newsletter.php";
+include "footer.php";
+?>
