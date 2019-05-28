@@ -22,7 +22,7 @@
 				$nav = $this.attr('data-nav');
 
 		$this.slick({
-			rows:2,
+			rows: 2,
 			slidesToShow: 4,
 			slidesToScroll: 4,
 			autoplay: true,
@@ -48,6 +48,41 @@
 	    ]
 		});
 	});
+
+// Products Slick for product list page
+$('.products-slick-pro-page').each(function() {
+	var $this = $(this),
+			$nav = $this.attr('data-nav');
+
+	$this.slick({
+		rows: 4,
+		slidesToShow: 3,
+		slidesToScroll: 3,
+		autoplay: true,
+		infinite: true,
+		speed: 300,
+		dots: false,
+		arrows: true,
+		appendArrows: $nav ? $nav : false,
+		responsive: [{
+				breakpoint: 991,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 1,
+				}
+			},
+			{
+				breakpoint: 480,
+				settings: {
+					slidesToShow: 1,
+					slidesToScroll: 1,
+				}
+			},
+		]
+	});
+});
+
+	
 
 	// Products Widget Slick
 	$('.products-widget-slick').each(function() {
