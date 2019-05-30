@@ -96,7 +96,7 @@
 			infinite: true,
 			autoplay: true,
 			speed: 300,
-			dots: true,
+			dots: false,
 			arrows: true,
 			appendArrows: $nav ? $nav : false,
 		});
