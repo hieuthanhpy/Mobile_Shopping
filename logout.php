@@ -1,14 +1,17 @@
 <?php
+
 session_start();
+
 unset($_SESSION["uid"]);
+
 unset($_SESSION["name"]);
-$backToMyPage = $_SESSION['HTTP_REFERER'];
-if(isset($backToMyPage))
-{
-  header('Location: '.$backToMyPage);
+
+$BackToMyPage = $_SERVER['HTTP_REFERER'];
+if(isset($BackToMyPage)) {
+    header('Location: '.$BackToMyPage);
+} else {
+    header('Location: index.php'); // default page
 }
-else
-{
-  header('Location: index.php');
-}
+   
+
 ?>

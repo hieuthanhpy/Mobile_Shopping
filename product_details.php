@@ -104,44 +104,6 @@ include "header.php";
       };
 ?>
 
-      <!-- Product tab -->
-      <div class="col-md-12">
-        <div id="product-tab">
-          <!-- product tab nav -->
-          <ul class="tab-nav">
-            <li class="active"><a data-toggle="tab" href="#tab1">Mô tả sản phẩm</a></li>
-          </ul>
-          <!-- /product tab nav -->
-
-          <!-- product tab content -->
-          <div class="tab-content">
-            <!-- tab1  -->
-            <div id="tab1" class="tab-pane fade in active">
-              <div class="row">
-                <div class="col-md-8" style="padding-right:20px; float:left">
-                  /*viet code detail trong nay*/
-                </div>
-                <div class="col-md-4" style="float:right;">
-                  <h3 style="color: #D10024;">Thông số kỹ thuật</h3>
-                  <p><b>Màn hình: </b>LED-backlit IPS LCD, 5.5", Retina HD</p>
-                  <p><b>Hệ điều hành: </b>iOS 12</p>
-                  <p><b>Camera sau: </b> Chính 12 MP & Phụ 12 MP</p>
-                  <p><b>Camera trước: </b> 7 MP</p>
-                  <p><b>CPU: </b> Apple A10 Fusion 4 nhân 64-bit</p>
-                  <p><b>RAM: </b> 3 GB</p>
-                  <p><b>Bộ nhớ trong: </b> 32 GB</p>
-                  <p><b>Thẻ SIM: </b> 1 Nano SIM, Hỗ trợ 4G</p>
-                  <p><b>Dung lượng pin: </b> 2900 mAh</p>
-                </div>
-              </div>
-            </div>
-            <!-- /tab1  -->
-
-          </div>
-          <!-- /product tab content  -->
-        </div>
-      </div>
-      <!-- /product tab -->
     </div>
     <!-- /row -->
   </div>

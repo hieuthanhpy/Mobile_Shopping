@@ -127,32 +127,33 @@ include 'header.php';
 		</div>
 		<!-- /STORE -->
 	</div>
-	<div class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<div class="col-md-4 col-xs-6">
-					<div class="section-title">
-						<h4 class="title">Top giá Rẻ</h4>
-						<div class="section-nav">
-							<div id="slick-nav-3" class="products-slick-nav"></div>
-						</div>
-					</div>
-					<div class="products-widget-slick" data-nav="#slick-nav-3">
-						<!-- product widget -->
-						<?php
-						include 'connectDB.php';
-						$product_query = "SELECT * FROM products, brands WHERE products.brand_id=brands.brand_id AND product_price < 6000000 GROUP By RAND()";
-						$run_query = mysqli_query($con, $product_query);
-						if (mysqli_num_rows($run_query) > 0) {
-							while ($row = mysqli_fetch_array($run_query)) {
-								$pro_id = $row['product_id'];
-								$pro_title = $row['product_title'];
-								$pro_price = $row['product_price'];
-								$pro_image = $row['product_image'];
-								$pro_brand = $row['brand_title'];
-								echo "  
+	  <!-- SECTION -->
+		<div class="section">
+    <!-- container -->
+    <div class="container">
+      <!-- row -->
+      <div class="row">
+        <div class="col-md-4 col-xs-6">
+          <div class="section-title">
+            <h4 class="title">Top giá Rẻ</h4>
+            <div class="section-nav">
+              <div id="slick-nav-3" class="products-slick-nav"></div>
+            </div>
+          </div>
+          <div class="products-widget-slick" data-nav="#slick-nav-3">
+              <!-- product widget -->
+              <?php
+                    include 'connectDB.php';
+                    $product_query = "SELECT * FROM products, brands WHERE products.brand_id=brands.brand_id AND product_price < 6000000 GROUP By RAND()";
+                    $run_query=mysqli_query($con, $product_query);
+                    if(mysqli_num_rows($run_query) > 0) {
+                      while($row = mysqli_fetch_array($run_query)){
+                        $pro_id = $row['product_id'];
+                        $pro_title = $row['product_title'];
+                        $pro_price = $row['product_price'];
+                        $pro_image = $row['product_image'];
+                        $pro_brand = $row['brand_title'];
+                        echo "  
                         <div class='product-widget'>
                           <div class='product-img'>
                             <img src='product_images/$pro_image' alt=''>
@@ -164,34 +165,34 @@ include 'header.php';
                         </div>
                       </div>
                         ";
-							};
-						};
-						?>
-						<div id="get_product_home2"></div>
-					</div>
-				</div>
+                      };
+                    };
+                    ?>                       
+            <div id="get_product_home2"></div>
+          </div>
+        </div>
 
-				<div class="col-md-4 col-xs-6">
-					<div class="section-title">
-						<h4 class="title">Top giá tầm trung</h4>
-						<div class="section-nav">
-							<div id="slick-nav-3" class="products-slick-nav"></div>
-						</div>
-					</div>
-					<div class="products-widget-slick" data-nav="#slick-nav-3">
-						<!-- product widget -->
-						<?php
-						include 'connectDB.php';
-						$product_query = "SELECT * FROM products, brands WHERE products.brand_id=brands.brand_id AND product_price BETWEEN 6000000 AND 11000000";
-						$run_query = mysqli_query($con, $product_query);
-						if (mysqli_num_rows($run_query) > 0) {
-							while ($row = mysqli_fetch_array($run_query)) {
-								$pro_id = $row['product_id'];
-								$pro_title = $row['product_title'];
-								$pro_price = $row['product_price'];
-								$pro_image = $row['product_image'];
-								$pro_brand = $row['brand_title'];
-								echo "  
+        <div class="col-md-4 col-xs-6">
+          <div class="section-title">
+            <h4 class="title">Top giá tầm trung</h4>
+            <div class="section-nav">
+              <div id="slick-nav-3" class="products-slick-nav"></div>
+            </div>
+          </div>
+          <div class="products-widget-slick" data-nav="#slick-nav-3">
+              <!-- product widget -->
+              <?php
+                    include 'connectDB.php';
+                    $product_query = "SELECT * FROM products, brands WHERE products.brand_id=brands.brand_id AND product_price BETWEEN 6000000 AND 11000000";
+                    $run_query=mysqli_query($con, $product_query);
+                    if(mysqli_num_rows($run_query) > 0) {
+                      while($row = mysqli_fetch_array($run_query)){
+                        $pro_id = $row['product_id'];
+                        $pro_title = $row['product_title'];
+                        $pro_price = $row['product_price'];
+                        $pro_image = $row['product_image'];
+                        $pro_brand = $row['brand_title'];
+                        echo "  
                         <div class='product-widget'>
                           <div class='product-img'>
                             <img src='product_images/$pro_image' alt=''>
@@ -203,34 +204,34 @@ include 'header.php';
                         </div>
                       </div>
                         ";
-							};
-						};
-						?>
-						<div id="get_product_home2"></div>
-					</div>
-				</div>
+                      };
+                    };
+                    ?>                       
+            <div id="get_product_home2"></div>
+          </div>
+        </div>
 
-				<div class="col-md-4 col-xs-6">
-					<div class="section-title">
-						<h4 class="title">Top giá cao</h4>
-						<div class="section-nav">
-							<div id="slick-nav-3" class="products-slick-nav"></div>
-						</div>
-					</div>
-					<div class="products-widget-slick" data-nav="#slick-nav-3">
-						<!-- product widget -->
-						<?php
-						include 'connectDB.php';
-						$product_query = "SELECT * FROM products, brands WHERE products.brand_id=brands.brand_id AND product_price > 12000000";
-						$run_query = mysqli_query($con, $product_query);
-						if (mysqli_num_rows($run_query) > 0) {
-							while ($row = mysqli_fetch_array($run_query)) {
-								$pro_id = $row['product_id'];
-								$pro_title = $row['product_title'];
-								$pro_price = $row['product_price'];
-								$pro_image = $row['product_image'];
-								$pro_brand = $row['brand_title'];
-								echo "  
+        <div class="col-md-4 col-xs-6">
+          <div class="section-title">
+            <h4 class="title">Top giá cao</h4>
+            <div class="section-nav">
+              <div id="slick-nav-3" class="products-slick-nav"></div>
+            </div>
+          </div>
+          <div class="products-widget-slick" data-nav="#slick-nav-3">
+              <!-- product widget -->
+              <?php
+                    include 'connectDB.php';
+                    $product_query = "SELECT * FROM products, brands WHERE products.brand_id=brands.brand_id AND product_price > 12000000";
+                    $run_query=mysqli_query($con, $product_query);
+                    if(mysqli_num_rows($run_query) > 0) {
+                      while($row = mysqli_fetch_array($run_query)){
+                        $pro_id = $row['product_id'];
+                        $pro_title = $row['product_title'];
+                        $pro_price = $row['product_price'];
+                        $pro_image = $row['product_image'];
+                        $pro_brand = $row['brand_title'];
+                        echo "  
                         <div class='product-widget'>
                           <div class='product-img'>
                             <img src='product_images/$pro_image' alt=''>
@@ -242,18 +243,19 @@ include 'header.php';
                         </div>
                       </div>
                         ";
-							};
-						};
-						?>
-						<div id="get_product_home2"></div>
-					</div>
-				</div>
-
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</div>
+                      };
+                    };
+                    ?>                       
+            <div id="get_product_home2"></div>
+          </div>
+        </div>
+        
+      </div>
+      <!-- /row -->
+    </div>
+    <!-- /container -->
+  </div>
+  <!-- /SECTION -->
 	<!-- /row -->
 </div>
 <!-- /container -->
