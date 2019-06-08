@@ -7,29 +7,7 @@ $(document).ready(function(){
     producthome();
     
     
-	//cat() is a funtion fetching category record from database whenever page is load
-	function cat(){
-		$.ajax({
-			url	:	"action.php",
-			method:	"POST",
-			data	:	{category:1},
-			success	:	function(data){
-				$("#get_category").html(data);
-				
-			}
-		})
-	}
-    function cathome(){
-		$.ajax({
-			url	:	"homeaction.php",
-			method:	"POST",
-			data	:	{categoryhome:1},
-			success	:	function(data){
-				$("#get_category_home").html(data);
-				
-			}
-		})
-	}
+
 	//brand() is a funtion fetching brand record from database whenever page is load
 	function brand(){
 		$.ajax({
@@ -77,7 +55,7 @@ $(document).ready(function(){
     
 	/*	when page is load successfully then there is a list of categories when user click on category we will get category id and 
 		according to id we will show products
-	*/
+	
 	$("body").delegate(".category","click",function(event){
 		$("#get_product").html("<h3>Loading...</h3>");
 		event.preventDefault();
@@ -114,7 +92,7 @@ $(document).ready(function(){
 		})
 	
 	})
-
+*/
 	/*	when page is load successfully then there is a list of brands when user click on brand we will get brand id and 
 		according to brand id we will show products
 	*/
@@ -302,7 +280,7 @@ $(document).ready(function(){
 		$('.total').each(function(){
 			net_total += ($(this).val()-0);
 		})
-		$('.net_total').html("Total : $ " +net_total);
+		$('.net_total').html("Total : VNĐ " +net_total);
 
 	})
 	//Change Quantity end here 
@@ -384,7 +362,7 @@ $(document).ready(function(){
 		$('.total').each(function(){
 			net_total += ($(this).val()-0);
 		})
-		$('.net_total').html("Total : $ " +net_total);
+		$('.net_total').html("Total : VNĐ " +net_total);
 	}
 
 	//remove product from cart

@@ -102,7 +102,7 @@ session_start();
 							} else {
 								echo '
                   <div class="dropdownn">
-                    <a href="#" class="dropdownn" data-toggle="modal" data-target="#myModal" ><i class="fa fa-user-o"></i> My Account</a>
+                    <a href="#" class="dropdownn" data-toggle="modal" data-target="#myModal" ><i class="fa fa-user-o"></i>Tài khoản</a>
                     <div class="dropdownn-content">
                       <a href="" data-toggle="modal" data-target="#Modal_login"><i class="fa fa-sign-in" aria-hidden="true" ></i>Login</a>
                       <a href="" data-toggle="modal" data-target="#Modal_register"><i class="fa fa-user-plus" aria-hidden="true"></i>Register</a>
@@ -125,7 +125,7 @@ session_start();
             <!-- LOGO -->
             <div class="col-md-3">
               <div class="header-logo">
-                <a href="#" class="logo">
+                <a href="index.php" class="logo">
                   <img src="./img/logo.png" alt="logo" />
                   <!-- <font style="font-style:normal; font-size: 33px;color: aliceblue;font-family: serif">Sokly Asia Mobile</font> -->
                 </a>
@@ -156,7 +156,7 @@ session_start();
                     <div class="cart-list" id="cart_product">
                     </div>
                     <div class="cart-btns">
-                      <a href="cart.php" style="width:100%;"><i class="fa fa-edit"></i>  edit cart</a>
+                      <a href="cart.php" style="width:100%;"><i class="fa fa-edit"></i> Chỉnh sửa</a>
                     </div>
                   </div>
                 </div>

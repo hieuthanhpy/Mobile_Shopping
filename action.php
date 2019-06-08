@@ -1,7 +1,151 @@
 <?php
 session_start();
 $ip_add = getenv("REMOTE_ADDR");
-include "db.php";
+include "connectDB.php";
+if(isset($_POST["brand"])){
+	$brand_query="SELECT * FROM brands";
+	$run_query=mysqli_query($con,$brand_query);
+	echo "
+	<div class='aside'>
+		<h3 class='aside-title'>Điện thoại</h3>
+		<div class='btn-group-vertical'>
+	";
+	if(mysqli_num_rows($run_query) > 0){
+		$i=1;
+		while($row=mysqli_fetch_array($run_query)){
+			$bid=$row["brand_id"];
+			$brand_title=$row["brand_title"];
+			$sql="SELECT COUNT(*) AS count_items FROM products WHERE brand_id=$i";
+			$query=mysqli_query($con,$sql);
+			$row=mysqli_fetch_array($query);
+			$count=$row["count_items"];
+			$i++;
+			echo "
+			<div type='button' class='btn navbar-btn selectBrand' bid='$bid'>
+				<a href='#'>
+					$brand_title
+					<small class='label label-success'>($count)</small>
+				</a>
+			</div>
+			";
+		}
+		echo "</div>";
+	}
+}
+
+
+if(isset($_POST["page"])){
+	$sql="SELECT * FROM products";
+	$run_query=mysqli_query($con,$sql);
+	$count=mysqli_num_rows($run_query);
+	$paneno=ceil($count/9);
+	for($i = 1; $i<=$paneno; $i++){
+		echo "
+		<li><a href='#product-row' page='$i' id='page' class='active'>$i</a></li>
+		";
+	}
+}
+
+if(isset($_POST["getProduct"])){
+	$limit=9;
+	if(isset($_POST["setPage"])){
+		$paneno=$_POST["pageNumber"];
+		$start=($paneno*$limit)-$limit;
+	}
+	else
+	{
+		$start=0;
+	}
+	$product_query = "SELECT * FROM products,brands WHERE products.brand_id=brands.brand_id LIMIT $start, $limit";
+	$run_query = mysqli_query($con,$product_query);
+	if(mysqli_num_rows($run_query) > 0){
+		while($row = mysqli_fetch_array($run_query)){
+			$pro_id    = $row['product_id'];
+			$pro_title = $row['product_title'];
+			$pro_price = $row['product_price'];
+			$pro_image = $row['product_image'];
+			echo "
+			
+			<div class='col-md-4 col-xs-6' >
+				<a href='product.php?p=$pro_id'><div class='product'>
+					<div class='product-img'>
+						<img src='product_images/$pro_image' style='max-height: 170px;' alt=''>
+							
+				</div></a>
+				<div class='product-body'>
+					<h3 class='product-name header-cart-item-name'><a href='product.php?p=$pro_id'>$pro_title</a></h3>
+					<h4 class='product-price header-cart-item-info'>$pro_price</h4>
+					<div class='product-rating'>
+						<i class='fa fa-star'></i>
+						<i class='fa fa-star'></i>
+						<i class='fa fa-star'></i>
+						<i class='fa fa-star'></i>
+						<i class='fa fa-star'></i>
+					</div>
+							
+						</div>
+						<div class='add-to-cart'>
+							<button pid='$pro_id' id='product' class='add-to-cart-btn block2-btn-towishlist' href='#'><i class='fa fa-shopping-cart'></i> add to cart</button>
+						</div>
+					</div>
+				</div>
+                        
+			";
+		}
+	}
+}
+
+if(isset($_POST["selectBrand"]) || isset($_POST["search"]))
+{
+	if(isset($_POST["selectBrand"]))
+	{
+		$id = $_POST["brand_id"];
+		$sql="SELECT * FROM products, brands WHERE products.brand_id=brands.brand_id AND products.brand_id='$id'";
+	}
+	else 
+	{
+		$keyword=$_POST["keyword"];
+		header('Location:product_list.php');
+		$sql="SELECT * FROM products,brands WHERE products.brand_id=brands.brand_id AND products.product_title LIKE '%$keyword%'";
+	}
+	$run_query=mysqli_query($con,$sql);
+	while($row=mysqli_fetch_array($run_query)){
+		$pro_id=$row['product_id'];
+		$pro_brand=$row['brand_title'];
+		$pro_title=$row['product_title'];
+		$pro_price=$row['product_price'];
+		$pro_image=$row['product_image'];
+		echo "
+		
+		<div class='col-md-4 col-xs-6' >
+					<a href='product.php?p=$pro_id'><div class='product'>
+						<div class='product-img'>
+							<img src='product_images/$pro_image' style='max-height: 170px;' alt=''>
+								
+					</div></a>
+					<div class='product-body'>
+						<h3 class='product-name header-cart-item-name'><a href='product.php?p=$pro_id'>$pro_title</a></h3>
+						<h4 class='product-price header-cart-item-info'>$pro_price</h4>
+						<div class='product-rating'>
+							<i class='fa fa-star'></i>
+							<i class='fa fa-star'></i>
+							<i class='fa fa-star'></i>
+							<i class='fa fa-star'></i>
+							<i class='fa fa-star'></i>
+						</div>
+								
+							</div>
+							<div class='add-to-cart'>
+								<button pid='$pro_id' id='product' class='add-to-cart-btn block2-btn-towishlist' href='#'><i class='fa fa-shopping-cart'></i> add to cart</button>
+							</div>
+						</div>
+					</div>
+		";
+	}
+	}
+	
+
+
 if(isset($_POST["addToCart"]))
 {
 	$p_id = $_POST["proId"];
@@ -117,48 +261,154 @@ if (isset($_POST["Common"]))
 			exit();
 		}
 	}
-	
-    
-    
-		// if (isset($_POST["checkOutDetails"])) 
-		// {
-		// 	if (mysqli_num_rows($query) > 0) 
-		// 	{
-		// 		//display user cart item with "Ready to checkout" button if user is not login
-		// 		echo '<div class="main ">
-		// 		<div class="table-responsive">
-		// 		<form method="post" action="login_form.php">
-		// 			<table id="cart" class="table table-hover table-condensed" id="">
-		// 				<thead>
-		// 					<tr>
-		// 						<th style="width:50%">Product</th>
-		// 						<th style="width:10%">Price</th>
-		// 						<th style="width:8%">Quantity</th>
-		// 						<th style="width:7%" class="text-center">Subtotal</th>
-		// 						<th style="width:10%"></th>
-		// 					</tr>
-		// 				</thead>
-		// 				<tbody>
-		// 									';
-		// 			$n=0;
-		// 			while ($row=mysqli_fetch_array($query)) 
-		// 			{
-		// 				$n++;
-		// 				$product_id = $row["product_id"];
-		// 				$product_title = $row["product_title"];
-		// 				$product_price = $row["product_price"];
-		// 				$product_image = $row["product_image"];
-		// 				$cart_item_id = $row["id"];
-		// 				$qty = $row["qty"];
-		// 			}
-		// }
+
+	if (isset($_POST["checkOutDetails"])) {
+		if (mysqli_num_rows($query) > 0) {
+			//display user cart item with "Ready to checkout" button if user is not login
+			echo '<div class="main ">
+			<div class="table-responsive">
+			<form method="post" action="login_form.php">
+			
+	               <table id="cart" class="table table-hover table-condensed" id="">
+    				<thead>
+						<tr>
+							<th style="width:20%;">Sản phẩm</th>
+							<th style="width:30%">Sản phẩm</th>
+							<th style="width:10%">Giá</th>
+							<th style="width:8%">Số Lượng</th>
+							<th style="width:7%" class="text-center">Tổng</th>
+							<th style="width:10%"></th>
+						</tr>
+					</thead>
+					<tbody>
+                    ';
+				$n=0;
+				while ($row=mysqli_fetch_array($query)) {
+					$n++;
+					$product_id = $row["product_id"];
+					$product_title = $row["product_title"];
+					$product_price = $row["product_price"];
+					$product_image = $row["product_image"];
+					$cart_item_id = $row["id"];
+					$qty = $row["qty"];
+
+					echo 
+						'
+                             
+						<tr>
+							<td data-th="Product-img" >
+								<div class="row">								
+									<div class="col-sm-5 text-center"><img src="product_images/'.$product_image.'" style="height: 70px;width:75px;"/>
+									</div>
+								</div>
+							</td>
+
+							<td data-th="Product-title">
+								<h4 class="nomargin product-name header-cart-item-name"><a href="product_details.php?p='.$product_id.'">'.$product_title.'</a></h4>
+							</td>
+														
+							<input type="hidden" name="product_id[]" value="'.$product_id.'"/>
+				      <input type="hidden" name="" value="'.$cart_item_id.'"/>
+							
+							<td data-th="Price"><input type="text" class="form-control price" value="'.$product_price.'" readonly="readonly"></td>
+							
+							<td data-th="Quantity">
+								<input type="text" class="form-control qty" value="'.$qty.'" >
+							</td>
+							
+							<td data-th="Subtotal" class="text-center"><input type="text" class="form-control total" value="'.$product_price.'" readonly="readonly"></td>
+							
+							<td class="actions" data-th="">
+							<div class="btn-group">
+								<a href="#" class="btn btn-info btn-sm update" update_id="'.$product_id.'"><i class="fa fa-refresh"></i></a>								
+								<a href="#" class="btn btn-danger btn-sm remove" remove_id="'.$product_id.'"><i class="fa fa-trash-o"></i></a>		
+							</div>							
+							</td>
+
+						</tr>
+					
+                            
+                            ';
+				}
+				
+				echo '</tbody>
+				<tfoot>
+					
+					<tr>
+						<td><a href="product_list.php" class="btn btn-warning"><i class="fa fa-angle-left"></i> Tiếp tục mua sắm</a></td>
+						<td colspan="3" class="hidden-xs"></td>
+						<td class="hidden-xs text-center"><b class="net_total" ></b></td>
+						<div id="issessionset"></div>
+                        <td>
+							
+							';
+				if (!isset($_SESSION["uid"])) {
+					echo '
+					
+							<a href="" data-toggle="modal" data-target="#Modal_register" class="btn btn-success">Tiến hành thanh toán</a></td>
+								</tr>
+							</tfoot>
+				
+							</table></div></div>';
+                }else if(isset($_SESSION["uid"])){
+					//Paypal checkout form
+					echo '
+					</form>
+					
+						<form action="checkout.php" method="post">
+							<input type="hidden" name="cmd" value="_cart">
+							<input type="hidden" name="business" value="">
+							<input type="hidden" name="upload" value="1">';
+							  
+							$x=0;
+							$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,b.id,b.qty FROM products a,cart b WHERE a.product_id=b.p_id AND b.user_id='$_SESSION[uid]'";
+							$query = mysqli_query($con,$sql);
+							while($row=mysqli_fetch_array($query)){
+								$x++;
+								echo  	
+
+									'<input type="hidden" name="total_count" value="'.$x.'">
+									<input type="hidden" name="item_name_'.$x.'" value="'.$row["product_title"].'">
+								  	 <input type="hidden" name="item_number_'.$x.'" value="'.$x.'">
+								     <input type="hidden" name="amount_'.$x.'" value="'.$row["product_price"].'">
+								     <input type="hidden" name="quantity_'.$x.'" value="'.$row["qty"].'">';
+								}
+							  
+							echo   
+								'<input type="hidden" name="return" value="http://localhost/myfiles/public_html/payment_success.php"/>
+					                <input type="hidden" name="notify_url" value="http://localhost/myfiles/public_html/payment_success.php">
+									<input type="hidden" name="cancel_return" value="http://localhost/myfiles/public_html/cancel.php"/>
+									<input type="hidden" name="currency_code" value="USD"/>
+									<input type="hidden" name="custom" value="'.$_SESSION["uid"].'"/>
+									<input type="submit" id="submit" name="login_user_with_product" name="submit" class="btn btn-success" value="Ready to Checkout">
+									</form></td>
+									
+									</tr>
+									
+									</tfoot>
+									
+							</table></div></div>    
+								';
+				}
+			}
+	}
+
 	}	
-
-
-?>
-
-
-
-
-
-
+//Remove item from cart
+if(isset($_POST["removeItemFromCart"])){
+	$remove_id=$_POST["rid"];
+	if(isset($_SESSION["uid"])){
+		$sql="DELETE FROM cart WHERE p_id='$remove_id' AND user_id='$_SESSION[uid]'";
+	}
+	else{
+		$sql = "DELETE FROM cart WHERE p_id = '$remove_id' AND ip_add = '$ip_add'";
+	}
+	if(mysqli_query($con,$sql)){
+		echo '
+		<div class="alert alert-danger">
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+		</div>
+		';
+		exit();
+	}
+}

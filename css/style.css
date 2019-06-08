@@ -1169,7 +1169,7 @@ textarea.input {
   cursor: default;
 }
 
-.store-pagination li a {
+.store-pagination li a:: {
   display: block;
 }
 
