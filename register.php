@@ -1,6 +1,6 @@
 <?php
 
-require_once("db_Con.php");
+include "db_Con.php";
  if (isset($_POST["signup_button"]))
   { 
       //lấy thông tin từ các form bằng phương thức POST 
