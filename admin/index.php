@@ -21,9 +21,19 @@ session_start();
 		<div class="col-md-9 content" style="margin-left:10px">
 			<div class="panel panel-default">
 				<div class="panel-heading" style="background-color:#c4e17f">
-					<h1>Welcome <php echo $row["name"]; ?></h1>
+					<h1>Welcome </h1>
 				</div><br>
 				<div class="panel-body">
+					<h3>
+						<?php
+						if(isset($_POST['success'])){
+							$success=$_POST["success"];
+							echo "
+							<h1 style='color:#0c0'>Sản phẩm được thêm vào cơ sở dữ liệu <span class='glyphicon glyphicon-ok'></h1></span>
+							";
+						}
+						?>
+					</h3>
 				</div>
 			</div>
 		</div>

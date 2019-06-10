@@ -1,9 +1,38 @@
+<?php
+include("../connectDB.php");
+session_start();
+if (isset($_POST['submit'])) {
+  $product_name = $_POST['product_name'];
+  $details = $_POST['details'];
+  $price = $_POST['price'];
+  $brand = $_POST['brand'];
+
+  //picture coding
+  $picture_name = $_FILES['picture']['name'];
+  $picture_type = $_FILES['picture']['type'];
+  $picture_tmp_name = $_FILES['picture']['tmp_name'];
+  $picture_size = $_FILES['picture']['size'];
+
+  if ($picture_type == "image/jpeg" || $picture_type == "image/jpg" || $picture_type == "image/png" || $picture_type == "image/gif") {
+    if ($picture_size <= 50000000)
+
+      $pic_name = time() . "_" . $picture_name;
+    move_uploaded_file($picture_tmp_name, "../product_images/" . $pic_name);
+
+    mysqli_query($con, "insert into products (brand_id,product_title,product_price, product_desc, product_image, product_TechSpecifications, product_guest) values ('$brand','$product_name','$price','$details','$pic_name','',0)") or die("query incorrect");
+    //mysqli_query($con,"insert into products (product_cat, product_brand,product_title,product_price, product_desc, product_image,product_keywords) values ('$product_type','$brand','$product_name','$price','$details','$pic_name','$tags')") or die ("query incorrect");
+    header("location: sumit_form.php?success=1");
+  }
+
+  mysqli_close($con);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>Xin chào admin</title>
+  <title>Admin Panel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="style/css/bootstrap.min.css" rel="stylesheet">
   <link href="style/css/k.css" rel="stylesheet">
@@ -25,33 +54,31 @@
             <div class="well">
               <form action="add_product.php" method="post" name="form" enctype="multipart/form-data">
                 <p>Tên sản phẩm</p>
-                <input class="input-lg thumbnail form-control" type="text" name="product_name" id="product_name" autofocus style="width:100%" required>
+                <input class="input-lg thumbnail form-control" type="text" name="product_name" id="product_name" autofocus style="width:100%" placeholder="Tên sản phẩm" required>
                 <p>Mô tả</p>
-                <textarea class="thumbnail form-control" name="details" id="details" style="width:100%; height:100px" required></textarea>
-                <p>Hình ảnh sản phẩm</p>
+                <textarea class="thumbnail form-control" name="details" id="details" style="width:100%; height:100px" placeholder="Mô tả" required></textarea>
+                <p>Hỉnh ảnh</p>
                 <div style="background-color:#CCC">
                   <input type="file" style="width:100%" name="picture" class="btn thumbnail" id="picture">
                 </div>
             </div>
+            
+          </div>
+          <div class="col-lg-5">
+            <div class="well">
+              <h4>Hãng sản xuất</h4>
+              <h5><strong>1 iPhone,2 Samsung,3 Oppo,4 Huawei,5 Xiaomi,6 Nokia,7 Asus, 8 Vsmart,9 Vivo</strong></h5>
+              <input type="number" name="brand" id="brand" class="form-control" placeholder="Nhà sản xuất">
+              <br>
+            </div>
+
             <div class="well">
               <h3>Giá</h3>
               <p>Giá</p>
               <div class="input-group">
                 <div class="input-group-addon">VNĐ</div>
-                <input type="text" class="form-control" name="price" id="price" placeholder="0.00" required>
+                <input type="text" class="form-control" name="price" id="price" placeholder="...VNĐ" required>
               </div><br>
-
-
-            </div>
-          </div>
-          <div class="col-lg-5">
-            <div class="well">
-              <h3>Loại sản phẩm</h3>         
-              <p>Nhà sản xuất</p>
-              <input type="number" name="brand" id="brand" class="form-control" >
-              <br>
-              <p>Other tags</p>
-              <input type="text" name="tags" id="tags" class="form-control" placeholder="">
             </div>
           </div>
 
@@ -63,5 +90,6 @@
  
 	</div>
 </div></div></div>
+<?php include("include/js.php"); ?>
 </body>
 </html>

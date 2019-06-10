@@ -9,9 +9,9 @@
           <div class="footer">
             <img src="./img/logo.png" alt="logo" />
             <hr style="border:none;">
-            <p style="color: hsl(235, 15%, 14%); font-weight: 500;">Sokly Asia Mobile - Hệ thống cửa hàng chuyên buôn bán các dòng điện thoại.</p>
+            <p style="color: hsl(235, 15%, 14%); font-weight: 500;"><strong>Sokly Asia Mobile </strong>- Hệ thống cửa hàng chuyên buôn bán các dòng điện thoại.</p>
             <ul class="footer-links">
-              <li><a href="#"><i class="fa fa-map-marker"></i>KTX khu A, phường Linh Trung, quận Thủ Đức ,Tp. Hồ Chí Minh</a></li>
+              <li><a href="#"><i class="fa fa-map-marker"></i>KTX khu A, phường Linh Trung, quận Thủ Đức, Tp. Hồ Chí Minh</a></li>
               <li><a href="#"><i class="fa fa-phone"></i>(012) 345-6789</a></li>
               <li><a href="#"><i class="fa fa-envelope-o"></i>example@gmail.com</a></li>
             </ul>

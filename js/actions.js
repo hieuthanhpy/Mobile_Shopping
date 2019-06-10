@@ -5,31 +5,7 @@ $(document).ready(function(){
 	product();
     
     producthome();
-    
-    
-	//cat() is a funtion fetching category record from database whenever page is load
-	function cat(){
-		$.ajax({
-			url	:	"action.php",
-			method:	"POST",
-			data	:	{category:1},
-			success	:	function(data){
-				$("#get_category").html(data);
-				
-			}
-		})
-	}
-    function cathome(){
-		$.ajax({
-			url	:	"homeaction.php",
-			method:	"POST",
-			data	:	{categoryhome:1},
-			success	:	function(data){
-				$("#get_category_home").html(data);
-				
-			}
-		})
-	}
+  
 	//brand() is a funtion fetching brand record from database whenever page is load
 	function brand(){
 		$.ajax({

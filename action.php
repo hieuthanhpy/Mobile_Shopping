@@ -56,7 +56,7 @@ if(isset($_POST["getProduct"])){
 	{
 		$start=0;
 	}
-	$product_query = "SELECT * FROM products,brands WHERE products.brand_id=brands.brand_id LIMIT $start, $limit";
+	$product_query = "SELECT * FROM products,brands WHERE products.brand_id=brands.brand_id ORDER BY RAND() LIMIT $limit ";
 	$run_query = mysqli_query($con,$product_query);
 	if(mysqli_num_rows($run_query) > 0){
 		while($row = mysqli_fetch_array($run_query)){
@@ -65,15 +65,14 @@ if(isset($_POST["getProduct"])){
 			$pro_price = $row['product_price'];
 			$pro_image = $row['product_image'];
 			echo "
-			
 			<div class='col-md-4 col-xs-6' >
-				<a href='product.php?p=$pro_id'><div class='product'>
+				<a href='product_details.php?p=$pro_id'><div class='product'>
 					<div class='product-img'>
 						<img src='product_images/$pro_image' style='max-height: 170px;' alt=''>
 							
 				</div></a>
 				<div class='product-body'>
-					<h3 class='product-name header-cart-item-name'><a href='product.php?p=$pro_id'>$pro_title</a></h3>
+					<h3 class='product-name header-cart-item-name'><a href='product_details.php?p=$pro_id'>$pro_title</a></h3>
 					<h4 class='product-price header-cart-item-info'>$pro_price</h4>
 					<div class='product-rating'>
 						<i class='fa fa-star'></i>
